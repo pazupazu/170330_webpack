@@ -1,3 +1,5 @@
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 module.exports = {
   // モード値を production に設定すると最適化された状態で、
   // development に設定するとソースマップ有効でJSファイルが出力される
@@ -11,8 +13,12 @@ module.exports = {
         test: /\.scss/,
         // Sassファイルの読み込みとコンパイル
         use: [
+          // CSSファイルを書き出すオプションを有効にする
+          {
+            loader: MiniCssExtractPlugin.loader,
+          },
           // linkタグに出力する機能
-          'style-loader',
+          // 'style-loader',
           // CSSをバンドルするための機能
           {
             loader: 'css-loader',
@@ -49,5 +55,12 @@ module.exports = {
         ],
       },
     ],
-  }
+  },
+  plugins: [
+    // CSSファイルを外だしにするプラグイン
+    new MiniCssExtractPlugin({
+      // ファイル名を設定します
+      filename: 'style.css',
+    }),
+  ],
 };
