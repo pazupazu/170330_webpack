@@ -1,4 +1,5 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssNano = require('cssnano')
 
 module.exports = {
   // モード値を production に設定すると最適化された状態で、
@@ -40,6 +41,9 @@ module.exports = {
               plugins: [
                 // Autoprefixerを有効化
                 // ベンダープレフィックスを自動付与する
+                require('cssnano')({
+                  preset: 'default'
+                }),
                 require('autoprefixer')({grid: true})
               ]
             },
